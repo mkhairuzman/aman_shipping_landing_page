@@ -3,7 +3,6 @@ import { useLanguageTransition } from "./components/languageTransition"
 import { Header, Footer, StickyWhatsApp } from "./components/Layout"
 import { Hero } from "./components/Hero"
 import {
-  TrustBand,
   About,
   WhySection,
   Experience,
@@ -25,7 +24,6 @@ export default function App() {
       <Header t={t} lang={lang} setLang={changeLanguage} />
       <main id="main-content" ref={main} tabIndex={-1}>
         <Hero t={t} />
-        <TrustBand t={t} />
         <About t={t} />
         <Services t={t} />
         <WhySection t={t} />

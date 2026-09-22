@@ -47,7 +47,7 @@ const { Header, Footer, StickyWhatsApp } = await import(
   "../src/components/Layout.tsx"
 )
 const { Hero } = await import("../src/components/Hero.tsx")
-const { TrustBand, About, WhySection, Experience, Credentials } = await import(
+const { About, WhySection, Experience, Credentials } = await import(
   "../src/components/CompanySections.tsx"
 )
 const { Services, CargoProcess, RouteSection } = await import(
@@ -66,7 +66,6 @@ assert.equal(
 for (const [lang, t] of Object.entries(content)) {
   const sections = [
     Hero,
-    TrustBand,
     About,
     Services,
     WhySection,
@@ -99,6 +98,18 @@ for (const [lang, t] of Object.entries(content)) {
   for (const [, id] of html.matchAll(/(?:href="#|aria-controls=")([^"]+)"/g))
     assert.ok(ids.includes(id), `Missing target ${id}`)
   assert.equal((html.match(/<h1\b/g) || []).length, 1)
+  const heroHtml = renderToStaticMarkup(createElement(Hero, props))
+  const routeHtml = renderToStaticMarkup(createElement(RouteSection, props))
+  assert.doesNotMatch(heroHtml, /route-map/)
+  assert.match(routeHtml, /id="connection"/)
+  assert.equal((routeHtml.match(/class="route-map /g) || []).length, 1)
+  assert.doesNotMatch(routeHtml, /route-graphic/)
+  assert.match(routeHtml, /M1266 365C1350 275 1500 320 1570 478/)
+  assert.match(routeHtml, /dur="10s"/)
+  assert.match(routeHtml, /begin="-5s"/)
+  assert.match(routeHtml, /repeatCount="indefinite"/)
+  assert.match(routeHtml, /rotate="auto"/)
+  assert.match(routeHtml, /translate\(1423\.25 328\.5\) rotate\(19\.18\)/)
   const headings = [...html.matchAll(/<h([1-6])\b/g)].map((match) =>
     Number(match[1]),
   )
@@ -117,7 +128,7 @@ for (const [lang, t] of Object.entries(content)) {
     )
     whatsappCount++
   }
-  assert.equal(whatsappCount, 8)
+  assert.equal(whatsappCount, 9)
   for (const [Component, messages] of [
     [Hero, [t.whatsappMsg.general]],
     [

@@ -11,6 +11,7 @@ logs/
 *.log
 .claude-replay.*
 .tmp-*
+.tmp/
 /.figma/design-context/
 
 # Platform-managed agentplat state, not project source. In the
@@ -19,3 +20,5 @@ logs/
 # beside it.
 /.plugins/
 /.opencode-skills/
+
+/src/assets/cargo-container-cutout.webp

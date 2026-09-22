@@ -6,7 +6,7 @@ import { HeadingWords } from "./languageTransition"
 export function FAQSection({ t }: { t: Content }) {
   const [open, setOpen] = useState<number | null>(null)
   return (
-    <section className="section-space section-space-compact bg-soft">
+    <section className="faq-section section-space section-space-compact bg-soft">
       <div id="faq" className="anchor-target max-w-2xl mx-auto px-5 lg:px-8">
         <div className="text-center">
           <SectionHeading {...t.faq} />
@@ -61,7 +61,7 @@ export function FAQSection({ t }: { t: Content }) {
 
 export function ContactCTA({ t }: { t: Content }) {
   return (
-    <section className="section-space section-space-compact bg-deep-blue relative overflow-hidden">
+    <section className="contact-cta section-space section-space-compact bg-deep-blue relative overflow-hidden">
       <div className="max-w-3xl mx-auto px-5 lg:px-8 text-center space-y-7">
         <h2 className="text-3xl lg:text-5xl font-bold text-white leading-tight reveal">
           <HeadingWords text={t.finalCta.headline} />

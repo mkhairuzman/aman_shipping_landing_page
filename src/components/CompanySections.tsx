@@ -1,75 +1,67 @@
+import { useEffect, useRef } from "react"
 import type { Content } from "../content"
 import { SectionHeading } from "./shared"
 import { EvidenceStrip } from "./EvidenceStrip"
 
-const aboutImage = new URL("../assets/company-profile.jpg", import.meta.url)
-  .href
-
 const experienceImage = new URL(
-  "../assets/cargo-container-illustration.jpg",
+  "../assets/cargo-container-upscaled.webp",
   import.meta.url,
 ).href
 
-export function TrustBand({ t }: { t: Content }) {
-  return (
-    <div id="stats-band" className="bg-light-blue border-y border-border">
-      <dl className="site-container py-8 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-        {t.trust.map((item) => (
-          <div key={item.label} className="text-center flex flex-col reveal">
-            <dt className="text-muted text-sm mt-2 order-2">{item.label}</dt>
-            <dd className="text-deep-blue font-bold text-xl lg:text-2xl">
-              {item.value}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  )
-}
-
 export function About({ t }: { t: Content }) {
+  const video = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const updatePlayback = () => {
+      if (reducedMotion.matches) video.current?.pause()
+      else void video.current?.play()
+    }
+    updatePlayback()
+    reducedMotion.addEventListener("change", updatePlayback)
+    return () => reducedMotion.removeEventListener("change", updatePlayback)
+  }, [])
+
   return (
-    <section className="section-space section-space-feature bg-white">
+    <section className="about-section section-space-feature">
       <div id="about" className="site-container anchor-target">
-        <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-10 lg:gap-20 items-center">
-          <div>
+        <div className="about-layout">
+          <div className="about-heading">
             <SectionHeading {...t.about} />
-            <p className="text-muted leading-relaxed mb-5 reveal">
-              {t.about.copy}
-            </p>
-            <p className="text-muted leading-relaxed reveal">{t.about.copy2}</p>
-            <blockquote
-              lang="ms"
-              className="mt-7 text-lg font-semibold text-navy reveal"
-            >
-              “{t.about.tagline}”
-            </blockquote>
           </div>
-          <figure className="reveal">
-            <div className="media-frame aspect-[4/3] image-reveal">
-              <img
-                src={aboutImage}
-                alt={t.about.companyImageAlt}
-                width="1122"
-                height="1402"
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
+          <figure className="about-media reveal">
+            <div className="about-video-frame image-reveal">
+              <video
+                ref={video}
+                autoPlay
+                muted
+                playsInline
+                loop={false}
+                preload="metadata"
+                poster="/videos/aman-tree-welcome-poster.webp"
+                width="1280"
+                height="720"
+              >
+                <source src="/videos/aman-tree-welcome.mp4" type="video/mp4" />
+              </video>
             </div>
-            <figcaption className="text-muted text-xs mt-3">
-              {t.about.companyImageCaption}
-            </figcaption>
           </figure>
+          <div className="about-body reveal">
+            <p>{t.about.copy}</p>
+            <p>{t.about.copy2}</p>
+          </div>
+          <blockquote lang="ms" className="about-quote reveal">
+            <p>“{t.about.tagline}”</p>
+          </blockquote>
         </div>
-        <dl className="grid md:grid-cols-2 gap-8 mt-12 pt-8 border-t border-border">
+        <dl className="about-principles">
           {[
             [t.about.missionLabel, t.about.mission],
             [t.about.visionLabel, t.about.vision],
           ].map(([title, desc]) => (
-            <div key={title} className="reveal">
-              <dt className="font-bold mb-3">{title}</dt>
-              <dd className="text-muted text-sm leading-relaxed">{desc}</dd>
+            <div key={title} className="about-principle reveal">
+              <dt>{title}</dt>
+              <dd>{desc}</dd>
             </div>
           ))}
         </dl>
@@ -80,7 +72,7 @@ export function About({ t }: { t: Content }) {
 
 export function WhySection({ t }: { t: Content }) {
   return (
-    <section className="section-space bg-white">
+    <section className="why-section section-space bg-white">
       <div className="site-container">
         <div className="text-center">
           <SectionHeading {...t.why} />
@@ -104,25 +96,22 @@ export function WhySection({ t }: { t: Content }) {
 
 export function Experience({ t }: { t: Content }) {
   return (
-    <section className="section-space section-space-feature bg-light-blue">
-      <div className="site-container grid lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] gap-10 lg:gap-20 items-center">
-        <figure className="reveal">
-          <div className="media-frame aspect-[4/3] image-reveal">
+    <section className="experience-section section-space section-space-feature bg-light-blue">
+      <div className="experience-layout site-container grid lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 lg:gap-14">
+        <figure className="experience-figure reveal">
+          <div className="experience-media image-reveal">
             <img
               src={experienceImage}
               alt={t.achievement.imageAlt}
-              width="1584"
-              height="993"
-              className="w-full h-full object-cover object-[65%_50%]"
+              width="2376"
+              height="1490"
+              className="w-full h-auto"
               loading="lazy"
               decoding="async"
             />
           </div>
-          <figcaption className="text-muted text-xs mt-3">
-            {t.achievement.imageCaption}
-          </figcaption>
         </figure>
-        <div>
+        <div className="experience-copy">
           <SectionHeading {...t.achievement} />
           <p className="text-muted text-sm leading-relaxed mb-7">
             {t.achievement.note}
@@ -151,7 +140,7 @@ export function Experience({ t }: { t: Content }) {
 
 export function Credentials({ t }: { t: Content }) {
   return (
-    <section className="section-space bg-white">
+    <section className="credentials-section section-space bg-white">
       <div className="site-container">
         <div className="text-center">
           <SectionHeading {...t.credentials} />

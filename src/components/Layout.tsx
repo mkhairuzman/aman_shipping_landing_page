@@ -14,6 +14,7 @@ export function Header({ t, lang, setLang }: { t: Content } & LanguageProps) {
   const [scrolled, setScrolled] = useState(false)
   const toggle = useRef<HTMLButtonElement>(null)
   const header = useRef<HTMLElement>(null)
+  const navigation = useRef<HTMLElement>(null)
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80)
     onScroll()
@@ -28,27 +29,53 @@ export function Header({ t, lang, setLang }: { t: Content } & LanguageProps) {
       media.removeEventListener("change", onResize)
     }
   }, [])
+  useEffect(() => {
+    if (!open) return
+    const previousOverflow = document.body.style.overflow
+    const background = document.querySelectorAll<HTMLElement>(
+      "#main-content, footer, .sticky-contact",
+    )
+    document.body.style.overflow = "hidden"
+    background.forEach((element) => (element.inert = true))
+    navigation.current?.querySelector<HTMLAnchorElement>("a")?.focus()
+    return () => {
+      document.body.style.overflow = previousOverflow
+      background.forEach((element) => (element.inert = false))
+    }
+  }, [open])
+
+  const closeMenu = () => {
+    setOpen(false)
+    toggle.current?.focus()
+  }
   return (
     <header
       ref={header}
       onKeyDown={(e) => {
-        if (e.key === "Escape" && open) {
-          setOpen(false)
-          toggle.current?.focus()
+        if (!open) return
+        if (e.key === "Escape") closeMenu()
+        if (e.key !== "Tab") return
+        const focusable = Array.from(
+          e.currentTarget.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          ),
+        ).filter((element) => element.getClientRects().length > 0)
+        const first = focusable[0]
+        const last = focusable.at(-1)
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last?.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first?.focus()
         }
       }}
-      onBlur={(e) => {
-        if (
-          !e.currentTarget.contains(e.relatedTarget) &&
-          !(
-            e.relatedTarget instanceof Element &&
-            e.relatedTarget.closest("[data-language-menu]")
-          )
-        )
-          setOpen(false)
-      }}
-      className={`fixed top-0 inset-x-0 z-50 bg-white border-b transition-shadow duration-200 ${
-        scrolled || open ? "border-border shadow-sm" : "border-transparent"
+      className={`site-header fixed top-0 inset-x-0 z-50 border-b transition-all duration-200 ${
+        open ? "is-menu-open " : ""
+      }${
+        scrolled || open
+          ? "is-scrolled border-border shadow-sm"
+          : "border-transparent"
       }`}
     >
       <div className="site-container h-20 flex items-center justify-between gap-5">
@@ -88,8 +115,8 @@ export function Header({ t, lang, setLang }: { t: Content } & LanguageProps) {
           aria-expanded={open}
           aria-controls="mobile-navigation"
           aria-label={open ? t.nav.close : t.nav.menu}
-          onClick={() => setOpen(!open)}
-          className="xl:hidden text-deep-blue flex items-center justify-center"
+          onClick={() => (open ? closeMenu() : setOpen(true))}
+          className="menu-toggle xl:hidden text-deep-blue flex items-center justify-center"
         >
           <svg
             aria-hidden="true"
@@ -105,24 +132,36 @@ export function Header({ t, lang, setLang }: { t: Content } & LanguageProps) {
           </svg>
         </button>
       </div>
+      <button
+        type="button"
+        aria-label={t.nav.close}
+        tabIndex={-1}
+        hidden={!open}
+        className="mobile-menu-backdrop xl:hidden"
+        onClick={closeMenu}
+      />
       <nav
+        ref={navigation}
         id="mobile-navigation"
         aria-label={t.nav.navigation}
         hidden={!open}
-        className="mobile-navigation xl:hidden border-t border-border px-5 py-4"
+        className="mobile-navigation xl:hidden"
       >
         {navKeys.map((key, i) => (
           <a
             key={key}
             href={`#${anchors[i]}`}
             onClick={() => setOpen(false)}
-            className="flex items-center text-navy font-medium"
+            className="mobile-nav-link"
           >
             {t.nav[key]}
           </a>
         ))}
-        <div className="border-t border-border pt-3 mt-2">
+        <div className="mobile-nav-tools">
           <LanguageSelector lang={lang} setLang={setLang} active={open} />
+          <WhatsAppLink message={t.whatsappMsg.general} className="w-full">
+            {t.nav.cta}
+          </WhatsAppLink>
         </div>
       </nav>
     </header>

@@ -121,3 +121,9 @@ Per the user's instruction, no browser access was awaited. The following are not
 - Browser console warnings/errors, font rendering and image loading under normal/slow/failed network conditions.
 
 Implementation and available automated checks are complete. Visual production sign-off remains pending these manual checks.
+
+## Editorial redesign
+
+- Hero now uses full-bleed cargo photography, oversized editorial typography, route visualization, and a compact desktop WhatsApp CTA.
+- Major sections use distinct asymmetric compositions, staggered service cards, stronger image crops, and restrained blue/green accents.
+- Motion stays CSS-based, pauses where appropriate, and respects `prefers-reduced-motion`; mobile layouts remove nonessential route decoration and preserve full-width actions.

@@ -189,7 +189,6 @@ const en = {
     headline: "Experience That Matters",
     imageAlt:
       "Illustration of stacked containers displaying Aman Cargo Services branding",
-    imageCaption: "Illustrative container image",
     note: "Figures reported in the company profile for the 2018 Hajj cargo operation. Approximate volumes relate to this project, not a delivery guarantee.",
     items: [
       {
@@ -460,7 +459,6 @@ const ms: typeof en = {
     headline: "Pengalaman yang Bermakna",
     imageAlt:
       "Ilustrasi kontena bertindan dengan penjenamaan Aman Cargo Services",
-    imageCaption: "Imej ilustrasi kontena",
     note: "Angka dalam profil syarikat bagi operasi kargo haji 2018. Anggaran ini merujuk kepada projek tersebut dan bukan jaminan tempoh penghantaran.",
     items: [
       {
