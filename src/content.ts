@@ -16,16 +16,26 @@ const en = {
     skip: "Skip to main content",
   },
   hero: {
-    eyebrow: "Saudi Arabia ↔ Malaysia",
-    headline: "Trusted Solutions Between Saudi Arabia & Malaysia",
-    copy: "International cargo, relocation, secure storage and modular solutions, handled with care from start to finish.",
-    primaryCta: "Talk to Us on WhatsApp",
-    secondaryCta: "Explore Our Services",
-    proof: [
-      `Since ${company.establishedYear}`,
-      "Registered in Malaysia",
-      "Saudi–Malaysia Experience",
-    ],
+    eyebrow: "Aman Cargo · International Logistics",
+    headline: "Trusted Solutions\nBetween Saudi Arabia\n& Malaysia",
+    copy: "Your belongings. Your business. Handled with care, from the first conversation to arrival.",
+    secondaryCta: "Explore Services",
+  },
+  latest: {
+    label: "Latest Info",
+    shipment: {
+      label: "Next Shipment",
+      route: "Saudi Arabia → Malaysia",
+      date: "15 October 2026",
+      cta: "Check Availability",
+    },
+    offer: {
+      label: "Current Offer",
+      title: "Special Cargo Rate",
+      route: "Saudi Arabia → Malaysia",
+      rate: "From SAR 18 / kg",
+      scope: "Personal & Commercial Cargo",
+    },
   },
   trust: [
     {
@@ -38,10 +48,8 @@ const en = {
   ],
   about: {
     eyebrow: "About Aman Tree",
-    headline: "Rooted in Malaysia, Connected to Saudi Arabia",
-    copy: `${company.name} was established on 21 March ${company.establishedYear}. Built with first-hand understanding of the Malaysian community in Saudi Arabia, we connect people and businesses through practical services.`,
-    copy2:
-      "Our Saudi–Malaysia cargo service is supported by home and office relocation, flexible storage and modular container solutions.",
+    headline: "Built on Amanah. Driven by Care.",
+    copy: `${company.name} grew from a first-hand understanding of the Malaysian community in Saudi Arabia. That connection shapes how we work: practical support, careful handling and a commitment to the people behind every shipment.`,
     tagline: "Dari Amanah Terbina, Untuk Masa Depan Bersama",
     missionLabel: "Our Mission",
     mission:
@@ -49,29 +57,17 @@ const en = {
     visionLabel: "Our Vision",
     vision:
       "To become a trusted Malaysian provider of international logistics, storage and innovative modular solutions by 2030.",
-    imageAlt: "Shipping containers at a port, illustrative photograph",
-    imageCaption: "Illustrative cargo photography",
-    companyImageAlt:
-      "Truck displaying Aman Cargo Services branding outside a warehouse",
-    companyImageCaption: "Aman Cargo Services",
   },
   services: {
     eyebrow: "Our Services",
-    headline: "Connected Services, Thoughtfully Handled",
+    headline: "Cargo, and Everything Around It",
     featured: {
       label: "Our Flagship Service",
       title: "Saudi Arabia – Malaysia Cargo",
-      desc: "Reliable cargo handling between Saudi Arabia and Malaysia, supported from collection and documentation through shipping, customs coordination and final delivery.",
-      scope: [
-        "Collection & temporary storage",
-        "Export/import documentation",
-        "Scheduled sea container shipping",
-        "Customs coordination",
-        "Optional delivery in Malaysia",
-      ],
+      desc: "Sea container shipping for personal belongings, furniture, commercial goods and Hajj or Umrah-related personal cargo.",
       audience:
-        "For personal belongings, furniture, commercial cargo and Hajj or Umrah-related personal cargo.",
-      cta: "Ask About Saudi–Malaysia Cargo",
+        "Collection on arrival or optional final delivery in Malaysia, arranged to suit your shipment.",
+      cta: "Discuss Your Cargo",
     },
     items: [
       {
@@ -115,6 +111,7 @@ const en = {
   why: {
     eyebrow: "Why Aman Tree",
     headline: "Care at Every Stage",
+    storiesCta: "View Success Stories",
     evidence: {
       label: "Cargo in pictures",
       alts: [
@@ -128,20 +125,20 @@ const en = {
     },
     benefits: [
       {
-        title: `Trusted Since ${company.establishedYear}`,
-        desc: "A registered Malaysian company built on amanah, commitment and care for the community.",
+        title: "Amanah in Practice",
+        desc: "Responsibility, commitment and care for the community guide how we handle your cargo.",
       },
       {
-        title: "Saudi–Malaysia Experience",
-        desc: "First-hand understanding of the cargo needs of Malaysians living in Saudi Arabia.",
+        title: "Experience on the Ground",
+        desc: "Hands-on cargo experience, including the Hajj operation featured below.",
       },
       {
-        title: "End-to-End Support",
-        desc: "Help with collection, documentation, shipping and customs coordination, with optional final delivery.",
+        title: "Careful Coordination",
+        desc: "Support with the documents and customs requirements that need attention along the way.",
       },
       {
-        title: "Flexible Solutions",
-        desc: "Cargo, relocation, storage and modular spaces shaped around your personal or business needs.",
+        title: "A Conversation First",
+        desc: "Discuss your items and destination with our team so the arrangements reflect what you need.",
       },
     ],
   },
@@ -175,12 +172,11 @@ const en = {
         desc: "Arrange collection on arrival or optional final delivery in Malaysia.",
       },
     ],
-    cta: "Discuss Your Shipment",
   },
   route: {
     eyebrow: "Our Connection",
-    headline: "Saudi Arabia ↔ Malaysia",
-    copy: "Supporting Malaysians in Saudi Arabia, families and businesses with personal and commercial cargo. Talk to us about your collection point, destination and the next available shipment.",
+    headline: "Two Countries. One Connected Route.",
+    copy: "Sea cargo connects collection in Saudi Arabia with arrival in Malaysia. Collection points and onward delivery are coordinated around your shipment; departure timing is confirmed with the team.",
     origin: "Saudi Arabia",
     destination: "Malaysia",
   },
@@ -202,20 +198,6 @@ const en = {
         value: hajjOperation.months,
         unit: " month",
         label: "Operation Completed",
-      },
-    ],
-  },
-  credentials: {
-    eyebrow: "Credentials & Recognition",
-    headline: "A Registered Malaysian Company",
-    items: [
-      {
-        title: "SSM Incorporation",
-        desc: `${company.name}, registration ${company.registrationNumber}. Established on 21 March ${company.establishedYear}.`,
-      },
-      {
-        title: "Saudi Logistics Appointment",
-        desc: "The company profile includes an appointment letter from Ocean Express Logistics Service EST in Saudi Arabia.",
       },
     ],
   },
@@ -251,17 +233,18 @@ const en = {
   },
   finalCta: {
     headline: "Let’s Plan Your Next Move",
-    copy: "Cargo, relocation, storage or a modular space. Tell us what you need and we’ll help you work through the details.",
-    cta: "Talk to Us on WhatsApp",
+    copy: "Share your item details and destination. We’ll help you plan the next step.",
+    cta: "Chat on WhatsApp",
   },
   footer: {
-    tagline: "Trusted solutions between Saudi Arabia and Malaysia.",
     malaysia: "Malaysia",
     saudi: "Saudi Arabia",
-    registration: "Registration",
     rights: "All rights reserved.",
   },
   whatsappMsg: {
+    availability:
+      "Hi Aman Tree, please share the next Saudi Arabia to Malaysia departure and booking availability.",
+    rate: "Hi Aman Tree, I would like today's cargo rate from Saudi Arabia to Malaysia.",
     general:
       "Hi Aman Tree, I would like to discuss your cargo, relocation, storage or modular services.",
     cargo:
@@ -289,16 +272,26 @@ const ms: typeof en = {
     skip: "Langkau ke kandungan utama",
   },
   hero: {
-    eyebrow: "Arab Saudi ↔ Malaysia",
-    headline: "Penyelesaian Dipercayai Antara Arab Saudi & Malaysia",
-    copy: "Perkhidmatan kargo antarabangsa, pemindahan, storan dan penyelesaian modular yang diurus dengan teliti dari awal hingga akhir.",
-    primaryCta: "Hubungi Kami di WhatsApp",
-    secondaryCta: "Lihat Perkhidmatan Kami",
-    proof: [
-      `Sejak ${company.establishedYear}`,
-      "Berdaftar di Malaysia",
-      "Pengalaman Arab Saudi–Malaysia",
-    ],
+    eyebrow: "Aman Cargo · Logistik Antarabangsa",
+    headline: "Penyelesaian\nDipercayai\nAntara Arab Saudi\n& Malaysia",
+    copy: "Barangan anda. Perniagaan anda. Diurus dengan teliti, dari perbincangan pertama hingga ketibaan.",
+    secondaryCta: "Lihat Perkhidmatan",
+  },
+  latest: {
+    label: "Info Terkini",
+    shipment: {
+      label: "Penghantaran Seterusnya",
+      route: "Arab Saudi → Malaysia",
+      date: "15 October 2026",
+      cta: "Semak Ketersediaan",
+    },
+    offer: {
+      label: "Tawaran Semasa",
+      title: "Kadar Khas Kargo",
+      route: "Arab Saudi → Malaysia",
+      rate: "Dari SAR 18 / kg",
+      scope: "Kargo Peribadi & Komersial",
+    },
   },
   trust: [
     { value: String(company.establishedYear), label: "Ditubuhkan di Malaysia" },
@@ -308,10 +301,8 @@ const ms: typeof en = {
   ],
   about: {
     eyebrow: "Tentang Aman Tree",
-    headline: "Berakar di Malaysia, Terhubung ke Arab Saudi",
-    copy: `${company.name} ditubuhkan pada 21 Mac ${company.establishedYear}. Berbekalkan pemahaman langsung tentang komuniti Malaysia di Arab Saudi, kami menghubungkan individu dan perniagaan melalui perkhidmatan yang memenuhi keperluan mereka.`,
-    copy2:
-      "Selain kargo Arab Saudi–Malaysia, kami menyediakan pemindahan rumah dan pejabat, storan fleksibel serta penyelesaian kontena modular.",
+    headline: "Berteraskan Amanah. Mengutamakan Anda.",
+    copy: `${company.name} berkembang daripada pemahaman langsung tentang komuniti Malaysia di Arab Saudi. Hubungan ini membentuk cara kami bekerja: sokongan praktikal, pengendalian teliti dan komitmen kepada setiap pelanggan.`,
     tagline: en.about.tagline,
     missionLabel: "Misi Kami",
     mission:
@@ -319,29 +310,17 @@ const ms: typeof en = {
     visionLabel: "Visi Kami",
     vision:
       "Menjadi penyedia logistik antarabangsa, storan dan penyelesaian modular inovatif yang dipercayai di Malaysia menjelang 2030.",
-    imageAlt: "Kontena perkapalan di pelabuhan, gambar ilustrasi",
-    imageCaption: "Gambar ilustrasi kargo",
-    companyImageAlt:
-      "Lori dengan penjenamaan Aman Cargo Services di luar gudang",
-    companyImageCaption: "Aman Cargo Services",
   },
   services: {
     eyebrow: "Perkhidmatan Kami",
-    headline: "Perkhidmatan Bersepadu, Diurus dengan Teliti",
+    headline: "Kargo dan Keperluan Anda",
     featured: {
       label: "Perkhidmatan Utama",
       title: "Kargo Arab Saudi – Malaysia",
-      desc: "Pengendalian kargo yang boleh dipercayai antara Arab Saudi dan Malaysia, daripada pengambilan dan dokumentasi hingga perkapalan, penyelarasan kastam dan penghantaran akhir.",
-      scope: [
-        "Pengambilan & simpanan sementara",
-        "Dokumentasi eksport/import",
-        "Penghantaran kontena laut berjadual",
-        "Penyelarasan kastam",
-        "Pilihan penghantaran di Malaysia",
-      ],
+      desc: "Penghantaran kontena laut untuk barangan peribadi, perabot, barangan komersial serta kargo peribadi berkaitan haji atau umrah.",
       audience:
-        "Untuk barangan peribadi, perabot, kargo komersial serta barangan peribadi berkaitan haji atau umrah.",
-      cta: "Tanya Tentang Kargo Arab Saudi–Malaysia",
+        "Pengambilan selepas ketibaan atau pilihan penghantaran akhir di Malaysia, diatur mengikut keperluan kargo anda.",
+      cta: "Bincangkan Kargo Anda",
     },
     items: [
       {
@@ -385,6 +364,7 @@ const ms: typeof en = {
   why: {
     eyebrow: "Mengapa Aman Tree",
     headline: "Teliti pada Setiap Langkah",
+    storiesCta: "Lihat Kisah Kejayaan",
     evidence: {
       label: "Kargo dalam gambar",
       alts: [
@@ -398,20 +378,20 @@ const ms: typeof en = {
     },
     benefits: [
       {
-        title: `Dipercayai Sejak ${company.establishedYear}`,
-        desc: "Syarikat Malaysia berdaftar yang berpegang pada amanah, komitmen dan keprihatinan terhadap komuniti.",
+        title: "Amanah dalam Tindakan",
+        desc: "Tanggungjawab, komitmen dan keprihatinan terhadap komuniti memandu cara kami mengendalikan kargo anda.",
       },
       {
-        title: "Pengalaman Arab Saudi–Malaysia",
-        desc: "Memahami sendiri keperluan kargo rakyat Malaysia yang menetap di Arab Saudi.",
+        title: "Pengalaman di Lapangan",
+        desc: "Pengalaman mengendalikan kargo secara langsung, termasuk operasi haji yang dipaparkan di bawah.",
       },
       {
-        title: "Sokongan Awal hingga Akhir",
-        desc: "Bantuan pengambilan, dokumentasi, perkapalan dan penyelarasan kastam, dengan pilihan penghantaran akhir.",
+        title: "Penyelarasan Teliti",
+        desc: "Sokongan untuk dokumen dan keperluan kastam yang memerlukan perhatian sepanjang urusan penghantaran.",
       },
       {
-        title: "Penyelesaian Fleksibel",
-        desc: "Kargo, pemindahan, storan dan ruang modular yang disesuaikan dengan keperluan peribadi atau perniagaan anda.",
+        title: "Bermula dengan Perbincangan",
+        desc: "Bincangkan barangan dan destinasi dengan pasukan kami supaya urusan sesuai dengan keperluan anda.",
       },
     ],
   },
@@ -445,12 +425,11 @@ const ms: typeof en = {
         desc: "Atur pengambilan selepas ketibaan atau pilihan penghantaran akhir di Malaysia.",
       },
     ],
-    cta: "Bincangkan Penghantaran Anda",
   },
   route: {
     eyebrow: "Hubungan Kami",
-    headline: "Arab Saudi ↔ Malaysia",
-    copy: "Membantu rakyat Malaysia di Arab Saudi, keluarga dan perniagaan mengurus kargo peribadi serta komersial. Hubungi kami untuk membincangkan lokasi pengambilan, destinasi dan jadual penghantaran seterusnya.",
+    headline: "Dua Negara. Satu Laluan.",
+    copy: "Kargo laut menghubungkan pengambilan di Arab Saudi dengan ketibaan di Malaysia. Lokasi pengambilan dan penghantaran seterusnya diselaraskan mengikut kargo anda; jadual pelepasan disahkan bersama pasukan kami.",
     origin: "Arab Saudi",
     destination: "Malaysia",
   },
@@ -472,20 +451,6 @@ const ms: typeof en = {
         value: hajjOperation.months,
         unit: " bulan",
         label: "Operasi Diselesaikan",
-      },
-    ],
-  },
-  credentials: {
-    eyebrow: "Dokumen & Pengiktirafan",
-    headline: "Syarikat Malaysia Berdaftar",
-    items: [
-      {
-        title: "Pemerbadanan SSM",
-        desc: `${company.name}, nombor pendaftaran ${company.registrationNumber}. Ditubuhkan pada 21 Mac ${company.establishedYear}.`,
-      },
-      {
-        title: "Pelantikan Logistik di Arab Saudi",
-        desc: "Profil syarikat menyertakan surat pelantikan daripada Ocean Express Logistics Service EST di Arab Saudi.",
       },
     ],
   },
@@ -521,17 +486,18 @@ const ms: typeof en = {
   },
   finalCta: {
     headline: "Mari Rancang Langkah Seterusnya",
-    copy: "Kargo, pemindahan, storan atau ruang modular. Beritahu kami keperluan anda dan kami akan bantu menguruskan butirannya.",
+    copy: "Kongsikan butiran barangan dan destinasi. Kami akan bantu merancang langkah seterusnya.",
     cta: "Hubungi Kami di WhatsApp",
   },
   footer: {
-    tagline: "Penyelesaian dipercayai antara Arab Saudi dan Malaysia.",
     malaysia: "Malaysia",
     saudi: "Arab Saudi",
-    registration: "Pendaftaran",
     rights: "Hak cipta terpelihara.",
   },
   whatsappMsg: {
+    availability:
+      "Hai Aman Tree, boleh kongsikan jadual pelepasan Arab Saudi ke Malaysia dan ketersediaan tempahan?",
+    rate: "Hai Aman Tree, saya ingin mendapatkan kadar kargo hari ini dari Arab Saudi ke Malaysia.",
     general:
       "Hai Aman Tree, saya ingin berbincang tentang perkhidmatan kargo, pemindahan, storan atau modular.",
     cargo:

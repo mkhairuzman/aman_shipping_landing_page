@@ -2,12 +2,7 @@ import { content } from "./content"
 import { useLanguageTransition } from "./components/languageTransition"
 import { Header, Footer, StickyWhatsApp } from "./components/Layout"
 import { Hero } from "./components/Hero"
-import {
-  About,
-  WhySection,
-  Experience,
-  Credentials,
-} from "./components/CompanySections"
+import { About, WhySection, Experience } from "./components/CompanySections"
 import { Services, CargoProcess, RouteSection } from "./components/Services"
 import { FAQSection, ContactCTA } from "./components/ContactSections"
 import { useReveals } from "./components/shared"
@@ -26,11 +21,10 @@ export default function App() {
         <Hero t={t} />
         <About t={t} />
         <Services t={t} />
+        <RouteSection t={t} />
         <WhySection t={t} />
         <CargoProcess t={t} />
-        <RouteSection t={t} />
         <Experience t={t} />
-        <Credentials t={t} />
         <FAQSection t={t} />
         <ContactCTA t={t} />
       </main>

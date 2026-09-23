@@ -6,8 +6,8 @@ import { WhatsAppLink } from "./shared"
 
 const amanTreeLogo = new URL("../../logo/logonew.svg", import.meta.url).href
 
-const navKeys = ["home", "services", "howItWorks", "about", "faq"] as const
-const anchors = ["home", "services", "how-it-works", "about", "faq"]
+const navKeys = ["home", "about", "services", "howItWorks", "faq"] as const
+const anchors = ["home", "about", "services", "how-it-works", "faq"]
 
 export function Header({ t, lang, setLang }: { t: Content } & LanguageProps) {
   const [open, setOpen] = useState(false)
@@ -175,12 +175,6 @@ export function Footer({ t, lang, setLang }: { t: Content } & LanguageProps) {
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           <div className="space-y-3">
             <p className="text-white font-bold text-xl">{company.name}</p>
-            <p className="text-white/70 text-sm leading-relaxed">
-              {t.footer.tagline}
-            </p>
-            <p className="text-white/70 text-sm">
-              {t.footer.registration}: {company.registrationNumber}
-            </p>
           </div>
           <nav aria-label={`${t.nav.navigation} (${t.nav.contact})`}>
             <h2 className="text-white font-semibold text-sm mb-4">
@@ -236,38 +230,67 @@ export function Footer({ t, lang, setLang }: { t: Content } & LanguageProps) {
 
 export function StickyWhatsApp({ t }: { t: Content }) {
   const [show, setShow] = useState(false)
+  const control = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const hero = document.getElementById("home")
     const footer = document.getElementById("contact")
-    if (!hero || !footer || !("IntersectionObserver" in window)) return
-    let heroPassed = false
-    let footerVisible = false
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.target === hero)
-          heroPassed =
-            !entry.isIntersecting && entry.boundingClientRect.bottom <= 0
-        if (entry.target === footer) footerVisible = entry.isIntersecting
+    if (!hero || !footer || !control.current) return
+    let frame = 0
+    const update = () => {
+      frame = 0
+      if (!control.current) return
+      const height = window.innerHeight
+      const style = getComputedStyle(control.current)
+      const right = window.innerWidth - (parseFloat(style.right) || 16)
+      const bottom = height - (parseFloat(style.bottom) || 16)
+      const left = right - 56
+      const top = bottom - 56
+      const blocked = Array.from(
+        document.querySelectorAll<HTMLElement>(
+          "main p, main h2, main h3, main a, main button, main article, main video, main img, main dl, main li, .route-map, .contact-cta",
+        ),
+      ).some((element) => {
+        const rect = element.getBoundingClientRect()
+        return (
+          rect.width > 0 &&
+          rect.height > 0 &&
+          rect.left < right + 8 &&
+          rect.right > left - 8 &&
+          rect.top < bottom + 8 &&
+          rect.bottom > top - 8
+        )
       })
-      setShow(heroPassed && !footerVisible)
-    })
-    observer.observe(hero)
-    observer.observe(footer)
-    return () => observer.disconnect()
-  }, [])
+      setShow(
+        hero.getBoundingClientRect().bottom <= 0 &&
+          footer.getBoundingClientRect().top >= height &&
+          !blocked,
+      )
+    }
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    window.addEventListener("scroll", schedule, { passive: true })
+    window.addEventListener("resize", schedule)
+    const resize = new ResizeObserver(schedule)
+    resize.observe(document.body)
+    update()
+    return () => {
+      window.removeEventListener("scroll", schedule)
+      window.removeEventListener("resize", schedule)
+      resize.disconnect()
+      cancelAnimationFrame(frame)
+    }
+  }, [t])
   return (
     <div
+      ref={control}
       inert={!show}
       aria-hidden={!show}
-      className={`sticky-contact fixed bottom-0 inset-x-0 z-40 xl:hidden ${
+      className={`sticky-contact fixed z-40 xl:hidden ${
         show ? "is-visible" : ""
       }`}
     >
-      <div className="px-4 pb-safe pt-2 bg-white/95 border-t border-border shadow-lg">
-        <WhatsAppLink message={t.whatsappMsg.general} className="w-full">
-          {t.nav.cta}
-        </WhatsAppLink>
-      </div>
+      <WhatsAppLink message={t.whatsappMsg.general}>{t.nav.cta}</WhatsAppLink>
     </div>
   )
 }

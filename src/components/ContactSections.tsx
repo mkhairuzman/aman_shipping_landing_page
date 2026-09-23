@@ -11,19 +11,16 @@ export function FAQSection({ t }: { t: Content }) {
         <div className="text-center">
           <SectionHeading {...t.faq} />
         </div>
-        <div className="space-y-3">
+        <div className="faq-list">
           {t.faq.items.map((item, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl border border-border reveal"
-            >
+            <div key={i} className="faq-item reveal">
               <h3>
                 <button
                   id={`faq-question-${i}`}
                   aria-expanded={open === i}
                   aria-controls={`faq-answer-${i}`}
                   onClick={() => setOpen(open === i ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-light-blue/50 rounded-2xl transition-colors duration-200"
+                  className="faq-toggle w-full flex items-center justify-between gap-4 text-left transition-colors duration-200"
                 >
                   <span className="font-semibold text-sm leading-relaxed">
                     {item.q}
@@ -47,7 +44,7 @@ export function FAQSection({ t }: { t: Content }) {
                 role="region"
                 aria-labelledby={`faq-question-${i}`}
                 hidden={open !== i}
-                className="faq-answer px-6 pb-5 text-muted leading-relaxed text-sm border-t border-border pt-4"
+                className="faq-answer pb-6 text-muted leading-relaxed text-sm"
               >
                 {item.a}
               </div>
@@ -74,9 +71,6 @@ export function ContactCTA({ t }: { t: Content }) {
             {t.finalCta.cta}
           </WhatsAppLink>
         </div>
-        <p className="pt-6 text-white/70 text-sm font-semibold tracking-wider uppercase">
-          {t.route.headline}
-        </p>
       </div>
     </section>
   )

@@ -47,7 +47,7 @@ const { Header, Footer, StickyWhatsApp } = await import(
   "../src/components/Layout.tsx"
 )
 const { Hero } = await import("../src/components/Hero.tsx")
-const { About, WhySection, Experience, Credentials } = await import(
+const { About, WhySection, Experience } = await import(
   "../src/components/CompanySections.tsx"
 )
 const { Services, CargoProcess, RouteSection } = await import(
@@ -68,11 +68,10 @@ for (const [lang, t] of Object.entries(content)) {
     Hero,
     About,
     Services,
+    RouteSection,
     WhySection,
     CargoProcess,
-    RouteSection,
     Experience,
-    Credentials,
     FAQSection,
     ContactCTA,
   ]
@@ -99,6 +98,49 @@ for (const [lang, t] of Object.entries(content)) {
     assert.ok(ids.includes(id), `Missing target ${id}`)
   assert.equal((html.match(/<h1\b/g) || []).length, 1)
   const heroHtml = renderToStaticMarkup(createElement(Hero, props))
+  const aboutHtml = renderToStaticMarkup(createElement(About, props))
+  const experienceHtml = renderToStaticMarkup(createElement(Experience, props))
+  assert.doesNotMatch(heroHtml, /hero-facts|stats-band|1272996-T|2018/)
+  assert.equal(
+    html.split(company.registrationNumber).length - 1,
+    1,
+    "Registration belongs only in About",
+  )
+  assert.equal(aboutHtml.split(company.registrationNumber).length - 1, 1)
+  assert.equal(aboutHtml.split(String(company.establishedYear)).length - 1, 1)
+  assert.equal(
+    html.split(t.about.tagline).length - 1,
+    1,
+    "Company quote appears only once",
+  )
+  assert.doesNotMatch(aboutHtml, /\b(?:loop|controls)[=\s>]|<figcaption/)
+  assert.match(
+    aboutHtml,
+    /<video[^>]*autoPlay=""[^>]*muted=""[^>]*playsInline=""/,
+  )
+  assert.match(heroHtml, /id="latest-info"/)
+  assert.match(heroHtml, /class="latest-info"/)
+  assert.match(heroHtml, /href="#about" aria-label="Scroll to About"/)
+  assert.doesNotMatch(heroHtml, /class="latest-label/)
+  assert.match(heroHtml, /15 October 2026/)
+  assert.match(heroHtml, /SAR 18 \/ kg/)
+  assert.match(heroHtml, /MYR 23 \/ kg/)
+  assert.doesNotMatch(heroHtml, /Talk to Us on WhatsApp|Get Today(?:’|')s Rate/)
+  assert.doesNotMatch(
+    heroHtml,
+    /Contact us for the latest departure|Booking availability: Ask us/,
+  )
+  assert.equal(
+    html.split(company.successStories).length - 1,
+    1,
+    "One success stories destination",
+  )
+  assert.ok(html.includes(t.why.storiesCta))
+  assert.ok(heroHtml.includes(t.why.storiesCta))
+  assert.match(heroHtml, /class="latest-facebook-button"[^>]*>[\s\S]*?<svg/)
+  for (const value of ["~200", "~80", "2 × 20", "&lt;1"])
+    assert.ok(experienceHtml.includes(value))
+  assert.ok(experienceHtml.includes(t.achievement.note))
   const routeHtml = renderToStaticMarkup(createElement(RouteSection, props))
   assert.doesNotMatch(heroHtml, /route-map/)
   assert.match(routeHtml, /id="connection"/)
@@ -120,7 +162,8 @@ for (const [lang, t] of Object.entries(content)) {
   for (const [, href] of html.matchAll(/<a\b[^>]*href="([^"]+)"/g)) {
     assert.notEqual(href, "#")
     if (!href.startsWith("https:")) continue
-    const url = new URL(href.replaceAll("&amp;", "&"))
+    const url = new URL(href.replaceAll("&amp;", "&").replaceAll("&#x27;", "'"))
+    if (url.href === company.successStories) continue
     assert.equal(url.host, "wa.me")
     assert.equal(url.pathname, `/${company.whatsapp}`)
     assert.ok(
@@ -128,9 +171,9 @@ for (const [lang, t] of Object.entries(content)) {
     )
     whatsappCount++
   }
-  assert.equal(whatsappCount, 9)
+  assert.equal(whatsappCount, 8)
   for (const [Component, messages] of [
-    [Hero, [t.whatsappMsg.general]],
+    [Hero, [t.whatsappMsg.availability]],
     [
       Services,
       [
@@ -140,14 +183,16 @@ for (const [lang, t] of Object.entries(content)) {
         t.whatsappMsg.modular,
       ],
     ],
-    [CargoProcess, [t.whatsappMsg.cargo]],
+    [CargoProcess, []],
     [ContactCTA, [t.whatsappMsg.general]],
     [StickyWhatsApp, [t.whatsappMsg.general]],
   ]) {
     const section = renderToStaticMarkup(createElement(Component, props))
     const links = [
       ...section.matchAll(/href="(https:\/\/wa\.me\/[^"]+)"/g),
-    ].map((match) => match[1].replaceAll("&amp;", "&"))
+    ].map((match) =>
+      match[1].replaceAll("&amp;", "&").replaceAll("&#x27;", "'"),
+    )
     assert.deepEqual(
       links,
       messages.map(whatsappUrl),
@@ -190,7 +235,7 @@ for (const [lang, t] of Object.entries(content)) {
   for (const [, tag] of html.matchAll(/(<img\b[^>]*>)/g))
     assert.match(tag, /alt="[^"]*"/)
   console.log(
-    `${lang}: rendered content PASS; 8 WhatsApp links with section-specific messages (including hidden sticky control), anchors, FAQ targets, headings, contact numbers, language state, service order and claim exclusions`,
+    `${lang}: rendered content PASS; ${whatsappCount} WhatsApp links (including hidden menu and sticky control), one success stories link, About-only company facts, schedule/rate safeguards, autoplay video, anchors, FAQ targets, headings, contact numbers, language state and service order`,
   )
 }
 

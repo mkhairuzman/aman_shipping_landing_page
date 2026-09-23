@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react"
 import type { Content } from "../content"
 
 const photos = [
@@ -47,53 +46,27 @@ const photos = [
 ]
 
 export function EvidenceStrip({ copy }: { copy: Content["why"]["evidence"] }) {
-  const viewport = useRef<HTMLDivElement>(null)
-  const [inView, setInView] = useState(false)
-
-  useEffect(() => {
-    if (!viewport.current || !("IntersectionObserver" in window)) return
-    const observer = new IntersectionObserver(([entry]) =>
-      setInView(entry.isIntersecting),
-    )
-    observer.observe(viewport.current)
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <div className="evidence-strip" data-in-view={inView}>
+    <div className="evidence-strip reveal">
       <p className="evidence-label text-muted text-sm">{copy.label}</p>
       <div
-        ref={viewport}
         className="evidence-viewport"
         role="region"
         aria-label={copy.label}
         tabIndex={0}
       >
         <div className="evidence-track">
-          {[false, true].map((duplicate) => (
-            <div
-              key={String(duplicate)}
-              className={`evidence-group${
-                duplicate ? " evidence-duplicate" : ""
-              }`}
-              aria-hidden={duplicate || undefined}
-              inert={duplicate || undefined}
-            >
-              {photos.map((photo, index) => (
-                <div className="evidence-card" key={photo.src}>
-                  <img
-                    src={photo.src}
-                    alt={duplicate ? "" : copy.alts[index]}
-                    width="280"
-                    height="210"
-                    loading="lazy"
-                    decoding="async"
-                    style={{
-                      objectPosition: photo.position,
-                    }}
-                  />
-                </div>
-              ))}
+          {photos.map((photo, index) => (
+            <div className="evidence-card" key={photo.src}>
+              <img
+                src={photo.src}
+                alt={copy.alts[index]}
+                width="280"
+                height="210"
+                loading="lazy"
+                decoding="async"
+                style={{ objectPosition: photo.position }}
+              />
             </div>
           ))}
         </div>

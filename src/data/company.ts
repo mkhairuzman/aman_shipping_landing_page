@@ -6,6 +6,7 @@ export const company = {
   phoneMalaysia: "+60 13-939 5190",
   phoneSaudi: "+966 53 049 9112",
   whatsapp: "60139395190",
+  successStories: "https://www.facebook.com/share/1CSBfniD5h/",
   address: [
     "No 6 Jalan 4/7A",
     "Seksyen 4 Bandar Baru Bangi",

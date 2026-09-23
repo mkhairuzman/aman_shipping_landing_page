@@ -41,7 +41,7 @@ export function SectionHeading({
   dark?: boolean
 }) {
   return (
-    <div className="space-y-4 mb-12 reveal">
+    <div className="section-heading reveal">
       <p className={`eyebrow ${dark ? "text-light-blue" : "text-deep-blue"}`}>
         {eyebrow}
       </p>

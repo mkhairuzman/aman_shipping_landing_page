@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react"
 import type { Content } from "../content"
 import { SectionHeading } from "./shared"
 import { EvidenceStrip } from "./EvidenceStrip"
@@ -9,19 +8,6 @@ const experienceImage = new URL(
 ).href
 
 export function About({ t }: { t: Content }) {
-  const video = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const updatePlayback = () => {
-      if (reducedMotion.matches) video.current?.pause()
-      else void video.current?.play()
-    }
-    updatePlayback()
-    reducedMotion.addEventListener("change", updatePlayback)
-    return () => reducedMotion.removeEventListener("change", updatePlayback)
-  }, [])
-
   return (
     <section className="about-section section-space-feature">
       <div id="about" className="site-container anchor-target">
@@ -32,11 +18,9 @@ export function About({ t }: { t: Content }) {
           <figure className="about-media reveal">
             <div className="about-video-frame image-reveal">
               <video
-                ref={video}
                 autoPlay
                 muted
                 playsInline
-                loop={false}
                 preload="metadata"
                 poster="/videos/aman-tree-welcome-poster.webp"
                 width="1280"
@@ -48,12 +32,19 @@ export function About({ t }: { t: Content }) {
           </figure>
           <div className="about-body reveal">
             <p>{t.about.copy}</p>
-            <p>{t.about.copy2}</p>
           </div>
           <blockquote lang="ms" className="about-quote reveal">
             <p>“{t.about.tagline}”</p>
           </blockquote>
         </div>
+        <dl className="about-facts reveal">
+          {t.trust.map((item) => (
+            <div key={item.label}>
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
         <dl className="about-principles">
           {[
             [t.about.missionLabel, t.about.mission],
@@ -116,45 +107,19 @@ export function Experience({ t }: { t: Content }) {
           <p className="text-muted text-sm leading-relaxed mb-7">
             {t.achievement.note}
           </p>
-          <dl className="grid grid-cols-2 gap-4">
+          <dl className="experience-stats">
             {t.achievement.items.map((item) => (
-              <div
-                key={item.label}
-                className="bg-white border border-border rounded-2xl p-5 sm:p-6 flex flex-col reveal"
-              >
-                <dt className="text-muted text-xs mt-3 order-2 leading-relaxed">
+              <div key={item.label} className="flex flex-col reveal">
+                <dt className="text-muted text-sm mt-2 order-2 leading-relaxed">
                   {item.label}
                 </dt>
-                <dd className="text-2xl sm:text-3xl font-extrabold text-deep-blue leading-tight tabular-nums">
+                <dd className="text-2xl sm:text-3xl font-bold text-deep-blue leading-tight tabular-nums">
                   {item.value}
                   <span className="text-base font-bold">{item.unit}</span>
                 </dd>
               </div>
             ))}
           </dl>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-export function Credentials({ t }: { t: Content }) {
-  return (
-    <section className="credentials-section section-space bg-white">
-      <div className="site-container">
-        <div className="text-center">
-          <SectionHeading {...t.credentials} />
-        </div>
-        <div className="grid md:grid-cols-2 gap-5">
-          {t.credentials.items.map((item) => (
-            <article
-              key={item.title}
-              className="bg-white rounded-2xl p-7 border border-border reveal"
-            >
-              <h3 className="text-xl font-bold mb-4">{item.title}</h3>
-              <p className="text-muted text-sm leading-relaxed">{item.desc}</p>
-            </article>
-          ))}
         </div>
       </div>
     </section>

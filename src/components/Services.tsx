@@ -241,16 +241,6 @@ export function Services({ t }: { t: Content }) {
                   {t.services.featured.audience}
                 </p>
               </div>
-              <ul className="text-muted text-sm">
-                {t.services.featured.scope.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span aria-hidden="true" className="text-brand-green">
-                      ✓
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
               <WhatsAppLink message={t.whatsappMsg.cargo}>
                 {t.services.featured.cta}
               </WhatsAppLink>
@@ -311,7 +301,7 @@ export function CargoProcess({ t }: { t: Content }) {
         <div className="text-center">
           <SectionHeading {...t.howItWorks} dark />
         </div>
-        <ol className="cargo-process grid lg:grid-cols-5 gap-0 lg:gap-4 mb-12">
+        <ol className="cargo-process grid lg:grid-cols-5 gap-0 lg:gap-4">
           {t.howItWorks.steps.map((step) => (
             <li
               key={step.num}
@@ -331,11 +321,6 @@ export function CargoProcess({ t }: { t: Content }) {
             </li>
           ))}
         </ol>
-        <div className="text-center">
-          <WhatsAppLink message={t.whatsappMsg.cargo}>
-            {t.howItWorks.cta}
-          </WhatsAppLink>
-        </div>
       </div>
     </section>
   )
@@ -349,10 +334,6 @@ export function RouteSection({ t }: { t: Content }) {
       id="connection"
       className="route-section section-space bg-light-green relative overflow-hidden"
     >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-20 route-glow"
-      />
       <div className="route-section-inner site-container relative">
         <div className="route-intro">
           <SectionHeading {...t.route} />
@@ -469,17 +450,13 @@ export function RouteSection({ t }: { t: Content }) {
               <circle cx="1570" cy="478" r="10" />
               <circle cx="1570" cy="478" r="3" />
             </g>
-            <g className="route-map-label route-map-label-origin">
-              <text x="1248" y="395" textAnchor="end">
-                {t.route.origin}
-              </text>
-            </g>
-            <g className="route-map-label route-map-label-destination">
-              <text x="1588" y="483">
-                {t.route.destination}
-              </text>
-            </g>
           </svg>
+          <span className="route-endpoint route-endpoint-origin">
+            {t.route.origin}
+          </span>
+          <span className="route-endpoint route-endpoint-destination">
+            {t.route.destination}
+          </span>
         </div>
       </div>
     </section>

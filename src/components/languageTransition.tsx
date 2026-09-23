@@ -1,14 +1,33 @@
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react"
+import {
+  Fragment,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react"
 import type { Lang } from "../content"
 
-export function HeadingWords({ text }: { text: string }) {
+export function HeadingWords({
+  text,
+  stagger = false,
+}: {
+  text: string
+  stagger?: boolean
+}) {
   return (
     <>
       {text.split(/(\s+)/).map((word, i) =>
         /^\s+$/.test(word) ? (
           <Fragment key={i}>{word}</Fragment>
         ) : (
-          <span className="language-word" key={i}>
+          <span
+            className="language-word"
+            key={i}
+            style={
+              stagger ? { "--word-index": i / 2 } as CSSProperties : undefined
+            }
+          >
             {word}
           </span>
         ),
@@ -39,8 +58,7 @@ const selector = [
 
 function textElements() {
   const all = [...document.querySelectorAll<HTMLElement>(selector)].filter(
-    (el) =>
-      !el.closest("#stats-band, .language-selector, [data-language-menu]"),
+    (el) => !el.closest(".language-selector, [data-language-menu]"),
   )
   return all.filter(
     (el) => !all.some((child) => child !== el && el.contains(child)),
